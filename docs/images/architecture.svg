@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="100%" height="100%" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <filter id="softShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="640" fill="#ffffff"/>
+
+  <!-- Top Title Bar -->
+  <rect x="40" y="24" width="1120" height="60" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="70" y="60" fill="#0f172a" font-size="20" font-weight="700" letter-spacing="0.3">Istio Service Mesh Traffic Management &amp; Zero-Trust Blueprint</text>
+  <rect x="880" y="40" width="125" height="26" rx="13" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="893" y="58" fill="#b91c1c" font-size="11" font-weight="700">CANARY ROUTING</text>
+  <rect x="1015" y="40" width="125" height="26" rx="13" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="1031" y="58" fill="#1d4ed8" font-size="11" font-weight="700">STRICT mTLS</text>
+
+  <!-- COLUMN 1: Ingress Gateway & Edge Routing -->
+  <rect x="40" y="110" width="340" height="490" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <rect x="40" y="110" width="340" height="40" rx="8" fill="#f1f5f9"/>
+  <text x="60" y="136" fill="#0284c7" font-size="13" font-weight="700">1. INGRESS GATEWAY &amp; EDGE</text>
+
+  <rect x="60" y="165" width="300" height="85" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="75" y="192" fill="#0f172a" font-size="14" font-weight="600">Istio Ingress Gateway</text>
+  <text x="75" y="214" fill="#64748b" font-size="11">Envoy Proxy • Port 80/443 External Edge</text>
+  <text x="75" y="234" fill="#0284c7" font-size="10" font-weight="600">TLS 1.3 Termination • HTTP Redirect to HTTPS</text>
+
+  <rect x="60" y="265" width="300" height="95" rx="6" fill="#f8fafc" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="75" y="292" fill="#1d4ed8" font-size="13" font-weight="600">VirtualService (Traffic Splitter)</text>
+  <text x="75" y="314" fill="#475569" font-size="11">• 90% Stable Baseline Traffic (Subset v1)</text>
+  <text x="75" y="332" fill="#475569" font-size="11">• 10% Canary Progressive Rollout (Subset v2)</text>
+  <text x="75" y="350" fill="#16a34a" font-size="10" font-weight="600">Header Match: x-canary-tester -> v2</text>
+
+  <rect x="60" y="375" width="300" height="100" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="75" y="402" fill="#0f172a" font-size="13" font-weight="600">Resilience: Timeout &amp; Retries</text>
+  <rect x="75" y="416" width="130" height="24" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="85" y="432" fill="#1d4ed8" font-size="10" font-weight="600">Timeout: 5s • Retries: 3x</text>
+  <text x="75" y="460" fill="#64748b" font-size="11">Retry on: 5xx, connect-failure, refused-stream</text>
+
+  <rect x="60" y="490" width="300" height="90" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="75" y="517" fill="#0f172a" font-size="13" font-weight="600">Fault Injection &amp; Chaos Test</text>
+  <text x="75" y="540" fill="#475569" font-size="11">• HTTP Delay: 2.0s on 0.1% of requests</text>
+  <text x="75" y="560" fill="#475569" font-size="11">• HTTP Abort: 500 error code on chaos probes</text>
+
+  <!-- COLUMN 2: Envoy Data Plane & Service Routing -->
+  <rect x="410" y="110" width="370" height="490" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <rect x="410" y="110" width="370" height="40" rx="8" fill="#f1f5f9"/>
+  <text x="430" y="136" fill="#dc2626" font-size="13" font-weight="700">2. ENVOY DATA PLANE &amp; mTLS</text>
+
+  <rect x="430" y="165" width="330" height="90" rx="6" fill="#f8fafc" stroke="#fca5a5" stroke-width="1"/>
+  <text x="445" y="192" fill="#b91c1c" font-size="13" font-weight="600">PeerAuthentication (STRICT mTLS)</text>
+  <text x="445" y="214" fill="#475569" font-size="11">Cryptographic pod-to-pod identity validation</text>
+  <text x="445" y="234" fill="#16a34a" font-size="10" font-weight="600">SPIFFE ID: spiffe://cluster.local/ns/default/sa/*</text>
+  <text x="445" y="248" fill="#64748b" font-size="10">Zero unencrypted plain text across pod mesh</text>
+
+  <rect x="430" y="270" width="330" height="105" rx="6" fill="#f8fafc" stroke="#fed7aa" stroke-width="1"/>
+  <text x="445" y="297" fill="#c2410c" font-size="13" font-weight="600">DestinationRule (Connection Pooling)</text>
+  <text x="445" y="320" fill="#15803d" font-size="11" font-weight="600">• TCP maxConnections: 1024 (connectTimeout 30ms)</text>
+  <text x="445" y="340" fill="#15803d" font-size="11" font-weight="600">• HTTP maxPendingRequests: 100 • maxRequests: 10</text>
+  <text x="445" y="360" fill="#475569" font-size="11">• Load Balancer: ROUND_ROBIN / LEAST_REQUEST</text>
+
+  <rect x="430" y="390" width="330" height="95" rx="6" fill="#f8fafc" stroke="#fed7aa" stroke-width="1"/>
+  <text x="445" y="417" fill="#c2410c" font-size="13" font-weight="600">Outlier Detection (Circuit Breaking)</text>
+  <text x="445" y="440" fill="#15803d" font-size="11" font-weight="600">• Consecutive 5xx Errors: 3 -> Ejection</text>
+  <text x="445" y="460" fill="#475569" font-size="11">• Base Ejection Time: 30s • Max Ejection: 50%</text>
+  <text x="445" y="478" fill="#b91c1c" font-size="10" font-weight="600">Isolates unhealthy pods automatically</text>
+
+  <rect x="430" y="500" width="330" height="80" rx="6" fill="#f8fafc" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="445" y="527" fill="#4338ca" font-size="13" font-weight="600">ServiceEntry (Egress Gateway)</text>
+  <text x="445" y="549" fill="#475569" font-size="11">• Controlled outbound routing to external APIs (Stripe)</text>
+  <text x="445" y="569" fill="#475569" font-size="11">• TLS origination &amp; external DNS resolution</text>
+
+  <!-- COLUMN 3: Zero-Trust Policy & Observability -->
+  <rect x="810" y="110" width="350" height="490" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <rect x="810" y="110" width="350" height="40" rx="8" fill="#f1f5f9"/>
+  <text x="830" y="136" fill="#059669" font-size="13" font-weight="700">3. GOVERNANCE &amp; OBSERVABILITY</text>
+
+  <rect x="830" y="165" width="310" height="95" rx="6" fill="#f8fafc" stroke="#a7f3d0" stroke-width="1"/>
+  <text x="845" y="192" fill="#065f46" font-size="13" font-weight="600">AuthorizationPolicy (L7 RBAC)</text>
+  <text x="845" y="214" fill="#475569" font-size="11">• Least-privilege service-to-service access</text>
+  <text x="845" y="234" fill="#059669" font-size="10" font-weight="600">ALLOW principal: frontend-gateway-sa</text>
+  <text x="845" y="250" fill="#b91c1c" font-size="10" font-weight="600">DENY all unauthorized cross-namespace requests</text>
+
+  <rect x="830" y="275" width="310" height="95" rx="6" fill="#f8fafc" stroke="#bae6fd" stroke-width="1"/>
+  <text x="845" y="302" fill="#0369a1" font-size="13" font-weight="600">Istiod Control Plane (Pilot &amp; Citadel)</text>
+  <text x="845" y="325" fill="#475569" font-size="11">• Dynamic xDS API push to sidecars</text>
+  <text x="845" y="345" fill="#475569" font-size="11">• Automated short-lived x509 cert rotation</text>
+  <text x="845" y="362" fill="#475569" font-size="11">• Zero downtime configuration propagation</text>
+
+  <rect x="830" y="385" width="310" height="95" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="845" y="412" fill="#0f172a" font-size="13" font-weight="600">Telemetry &amp; Distributed Tracing</text>
+  <text x="845" y="435" fill="#475569" font-size="11">• Prometheus metrics: `istio_requests_total`</text>
+  <text x="845" y="455" fill="#475569" font-size="11">• p50, p95, p99 request duration histograms</text>
+  <text x="845" y="472" fill="#475569" font-size="11">• W3C / B3 distributed trace propagation (Jaeger)</text>
+
+  <rect x="830" y="495" width="310" height="85" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="845" y="522" fill="#0f172a" font-size="13" font-weight="600">Kiali Service Topology Graph</text>
+  <text x="845" y="545" fill="#475569" font-size="11">• Real-time visual traffic animation</text>
+  <text x="845" y="565" fill="#475569" font-size="11">• Live circuit breaker &amp; error rate visualization</text>
+</svg>

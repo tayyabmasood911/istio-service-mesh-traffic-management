@@ -6,3 +6,15 @@ metadata:
 spec:
   mtls:
     mode: STRICT
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: api-service-strict-mtls
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: api-service
+  mtls:
+    mode: STRICT

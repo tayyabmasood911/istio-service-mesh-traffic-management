@@ -2,16 +2,42 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: api-traffic-splitter
+  namespace: default
 spec:
   hosts:
   - "api.company.internal"
+  gateways:
+  - istio-system/internal-gateway
+  - mesh
   http:
-  - route:
+  - name: canary-header-route
+    match:
+    - headers:
+        x-canary-tester:
+          exact: "true"
+    route:
     - destination:
-        host: api-service
+        host: api-service.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 8080
+    timeout: 5s
+  - name: weighted-traffic-split
+    route:
+    - destination:
+        host: api-service.default.svc.cluster.local
         subset: v1
+        port:
+          number: 8080
       weight: 90
     - destination:
-        host: api-service
+        host: api-service.default.svc.cluster.local
         subset: v2
+        port:
+          number: 8080
       weight: 10
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: 5xx,connect-failure,refused-stream
+    timeout: 5s
